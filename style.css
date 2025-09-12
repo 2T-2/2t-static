@@ -45,6 +45,15 @@ header nav a:hover {
   text-decoration: underline;
 }
 
+.welcome {
+  padding: 20px;
+  text-align: center;
+}
+
+.form {
+  text-align: center;
+}
+
 /* Main containers */
 .container {
   padding: 20px;
