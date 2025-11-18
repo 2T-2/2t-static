@@ -31,4 +31,4 @@ This is a static website project built using HTML, CSS, and JavaScript bootstrap
 
 ## 📁 Project Structure
 - **Coming Soon**
-2025
+All Copy Right are reserved Joseph-2025
