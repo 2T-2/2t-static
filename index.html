@@ -66,6 +66,69 @@ The standard chunk Cicero are also reproduced in their exact original form, acco
       </section>
     </main>
 
+
+    <footer>
+        <p>Your Current Coordinates: <span id="location-display">Fetching location...</span></p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const locationDisplay = document.getElementById('location-display');
+
+            // 1. Check for Geolocation API support
+            if ("geolocation" in navigator) {
+                
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                };
+
+                // 2. Request user's position
+                navigator.geolocation.getCurrentPosition(success, error, options);
+            } else {
+                locationDisplay.textContent = "Geolocation is not supported by your browser.";
+            }
+        });
+
+        // 3. Success Callback: Get coordinates
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const locationDisplay = document.getElementById('location-display');
+
+            // Display the coordinates
+            locationDisplay.textContent = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
+            
+            // Note: The .toFixed(4) is used to round the long decimal values for cleaner display.
+        }
+
+        // 4. Error Callback: Handle issues (denial, timeout, etc.)
+        function error(err) {
+            const locationDisplay = document.getElementById('location-display');
+            
+            let errorMessage = "Could not fetch location.";
+
+            switch(err.code) {
+                case err.PERMISSION_DENIED:
+                    errorMessage = "Location access **denied** by the user.";
+                    break;
+                case err.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is **unavailable**.";
+                    break;
+                case err.TIMEOUT:
+                    errorMessage = "Request for location **timed out**.";
+                    break;
+            }
+            locationDisplay.textContent = errorMessage;
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+    </script>
+
+
+
+
+
     <footer>
       <p>&copy; 2025 -  All rights are reserved.</p>
       
