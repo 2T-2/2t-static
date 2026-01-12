@@ -41,12 +41,26 @@ The standard chunk Cicero are also reproduced in their exact original form, acco
         <div class="content">
           <div class="text">
             <h2>Where can I get some?</h2>
-            <p>This is a brief description of project two. It explains what makes this project unique.</p>
+            <p>This is a brief description of project two as we mentioned . It explains what makes this project unique.</p>
             <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
             <button class="btn">Read More</button>
           </div>
           <div class="image">
             <img src="assets/asset-2.jpg" alt="Project Two Image">
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <div class="content">
+          <div class="text">
+            <h2>my today new post</h2>
+            <p>This is a brief description of project two. It explains what makes this project unique.</p>
+            <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable. If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text. All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet. It uses a dictionary of over 200 Latin words, combined with a handful of model sentence structures, to generate Lorem Ipsum which looks reasonable. The generated Lorem Ipsum is therefore always free from repetition, injected humour, or non-characteristic words etc.</p>
+            <button class="btn">Read More</button>
+          </div>
+          <div class="image">
+            <img src="assets/hi.jpg" alt="Project Two Image">
           </div>
         </div>
       </section>
@@ -66,11 +80,71 @@ The standard chunk Cicero are also reproduced in their exact original form, acco
       </section>
     </main>
 
+
     <footer>
       
-      <p>&copy; 2025 -  All rights are reserved.</p>
+      <p>&copy; 2026  All rights are reserved.</p>
 
+        <p>&copy; 2026 -  All rights are reserved.</p>
+        <p>Your Current Coordinates: <span id="location-display">Fetching location...</span></p>
     </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const locationDisplay = document.getElementById('location-display');
+
+            // 1. Check for Geolocation API support
+            if ("geolocation" in navigator) {
+                
+                const options = {
+                    enableHighAccuracy: true,
+                    timeout: 5000,
+                    maximumAge: 0
+                };
+
+                // 2. Request user's position
+                navigator.geolocation.getCurrentPosition(success, error, options);
+            } else {
+                locationDisplay.textContent = "Geolocation is not supported by your browser.";
+            }
+        });
+
+        // 3. Success Callback: Get coordinates
+        function success(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const locationDisplay = document.getElementById('location-display');
+
+            // Display the coordinates
+            locationDisplay.textContent = `Lat: ${latitude.toFixed(4)}, Lon: ${longitude.toFixed(4)}`;
+            
+            // Note: The .toFixed(4) is used to round the long decimal values for cleaner display.
+        }
+
+        // 4. Error Callback: Handle issues (denial, timeout, etc.)
+        function error(err) {
+            const locationDisplay = document.getElementById('location-display');
+            
+            let errorMessage = "Could not fetch location.";
+
+            switch(err.code) {
+                case err.PERMISSION_DENIED:
+                    errorMessage = "Location access **denied** by the user.";
+                    break;
+                case err.POSITION_UNAVAILABLE:
+                    errorMessage = "Location information is **unavailable**.";
+                    break;
+                case err.TIMEOUT:
+                    errorMessage = "Request for location **timed out**.";
+                    break;
+            }
+            locationDisplay.textContent = errorMessage;
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+    </script>
+
+
+
   </div>
 </body>
 </html>
